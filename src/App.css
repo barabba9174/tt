@@ -1,0 +1,28 @@
+.App {
+    padding: 2em;
+}
+
+.error {
+    color: #ce352c;
+    order: 3;
+    padding: .5rem .75rem;
+    line-height: 1.25rem;
+    display: none;
+    font-size: .8em;
+}
+
+.invalid .error {
+    display: block;
+}
+
+.button {
+    width: 100%;
+}
+
+.button:disabled {
+    cursor: default;
+}
+
+.prepend {
+    min-width: 8em;
+}
