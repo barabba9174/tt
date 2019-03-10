@@ -4,7 +4,7 @@ import {func, number} from 'prop-types';
 import InitialPosition from './InitalPosition';
 import Instructions from './Instructions';
 
-export default class AddRobot extends Component {
+export default class AddRobotInputs extends Component {
     static defaultProps = {
         onSubmit: () => { },
         mapWidth: 0,

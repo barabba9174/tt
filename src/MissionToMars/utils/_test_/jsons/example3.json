@@ -1,0 +1,67 @@
+[
+    {
+        "quadrant": 2,
+        "x": 0,
+        "y": 3
+    },
+    {
+        "command": "L",
+        "quadrant": 1,
+        "x": 0,
+        "y": 3
+    },
+    {
+        "command": "L",
+        "quadrant": 0,
+        "x": 0,
+        "y": 3
+    },
+    {
+        "command": "F",
+        "quadrant": 0,
+        "x": 1,
+        "y": 3
+    },
+    {
+        "command": "F",
+        "quadrant": 0,
+        "x": 2,
+        "y": 3
+    },
+    {
+        "command": "F",
+        "quadrant": 0,
+        "x": 3,
+        "y": 3
+    },
+    {
+        "command": "L",
+        "quadrant": 3,
+        "x": 3,
+        "y": 3
+    },
+    {
+        "command": "F",
+        "quadrant": 3,
+        "x": 3,
+        "y": 3
+    },
+    {
+        "command": "L",
+        "quadrant": 2,
+        "x": 3,
+        "y": 3
+    },
+    {
+        "command": "F",
+        "quadrant": 2,
+        "x": 2,
+        "y": 3
+    },
+    {
+        "command": "L",
+        "quadrant": 1,
+        "x": 2,
+        "y": 3
+    }
+]

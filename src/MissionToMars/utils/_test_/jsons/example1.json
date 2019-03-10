@@ -1,0 +1,55 @@
+[
+    {
+        "quadrant": 0,
+        "x": 1,
+        "y": 1
+    },
+    {
+        "command": "R",
+        "quadrant": 1,
+        "x": 1,
+        "y": 1
+    },
+    {
+        "command": "F",
+        "quadrant": 1,
+        "x": 1,
+        "y": 0
+    },
+    {
+        "command": "R",
+        "quadrant": 2,
+        "x": 1,
+        "y": 0
+    },
+    {
+        "command": "F",
+        "quadrant": 2,
+        "x": 0,
+        "y": 0
+    },
+    {
+        "command": "R",
+        "quadrant": 3,
+        "x": 0,
+        "y": 0
+    },
+    {
+        "command": "F",
+        "quadrant": 3,
+        "x": 0,
+        "y": 1
+    },
+    {
+        "command": "R",
+        "quadrant": 0,
+        "x": 0,
+        "y": 1
+    },
+    {
+        "command": "F",
+        "quadrant": 0,
+        "x": 1,
+        "y": 1
+    }
+]

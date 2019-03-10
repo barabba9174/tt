@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react';
 import { number, arrayOf, shape, string } from 'prop-types';
-import RobotSprite from '../RobotSprite';
+import RobotSprite from './RobotSprite';
 
 export default class Robot extends Component {
     static defaultProps = {

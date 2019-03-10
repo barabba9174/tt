@@ -2,39 +2,44 @@ import React, { Component } from 'react';
 import { getFinalPos } from './utils/quadrant';
 import colors from './utils/colors';
 import moveRobot from './utils/move';
-import {robotSteps} from './utils/position';
+import { robotSteps } from './utils/position';
 import ResultTable from './ResultTable';
-import World from './World';
-import Robot from './Robot';
 import WorldInput from './WorldInput';
-import AddRobot from './AddRobot';
+import AddRobotInputs from './AddRobotInputs';
+import WorldAnimation from './WorldAnimation';
 
 const multiplier = 23;
 const time = 1000;
 
-class MissionToMars extends Component {
-    static defaultProps = {}
+const initialState = {
+    mapWidth: 0,
+    mapHeight: 0,
+    mapReady: false,
+    prevLostPos: [],
+    robots: []
+}
+
+export default class MissionToMars extends Component {
 
     constructor() {
         super();
-        this.state = {
-            mapWidth: 0,
-            mapHeight: 0,
-            prevLostPos: [],
-            robots: [],
-            mapReady: false
-        };
+        this.state = initialState;
     }
 
     handleCreateMap = (marsMap) => {
         const newSize = marsMap
             .split(' ')
             .map(el => Number(el));
-        this.setState({mapWidth: newSize[0], mapHeight: newSize[1], robots: [], prevLostPos: [], mapReady: true});
+        this.setState({
+            ...initialState,
+            mapWidth: newSize[0],
+            mapHeight: newSize[1],
+            mapReady: true
+        });
     }
 
     handleResetMap = () => {
-        this.setState({mapWidth: 0, mapHeight: 0, robots: [], prevLostPos: [], mapReady: false});
+        this.setState(initialState);
     }
 
     moveRobot = ({x, y, command, quadrant}) => {
@@ -50,16 +55,16 @@ class MissionToMars extends Component {
         });
     }
 
-    handleAddRobot = (robotPosition, robotInstructions) => {
-        const {robots, prevLostPos} = this.state;
+    handleAddRobot = (startPos, instructions) => {
+        const { robots, prevLostPos } = this.state;
 
-        const steps = robotSteps(robotInstructions, robotPosition, this.moveRobot);
-        const lastState = steps[steps.length - 1];
-        const initialState = steps[0];
+        const steps = robotSteps(startPos, instructions, this.moveRobot);
+        const lastRobotState = steps[steps.length - 1];
+        const initialRobotState = steps[0];
 
-        const {lost, x, y} = lastState;
-        
-        const addLost = lost
+        const { lost, x, y } = lastRobotState;
+
+        const addLostPos = lost
             ? [{ x, y }]
             : [];
 
@@ -68,27 +73,30 @@ class MissionToMars extends Component {
         this.setState({
             robots: [
                 ...robots, {
-                    ...initialState,
+                    ...initialRobotState,
                     name: `Robot #${index}`,
                     color: colors[index],
-                    startPos: robotPosition,
-                    endPos: getFinalPos(lastState),
-                    instructions: robotInstructions,
+                    startPos,
+                    endPos: getFinalPos(lastRobotState),
+                    instructions,
                     lost,
                     steps
                 }
             ],
             prevLostPos: [
                 ...prevLostPos,
-                ...addLost
+                ...addLostPos
             ]
         });
     }
 
-
-
     render() {
-        const {mapWidth, mapHeight, prevLostPos, robots, mapReady} = this.state;
+        const { 
+            mapWidth, 
+            mapHeight, 
+            robots, 
+            mapReady 
+        } = this.state;
 
         return (
 
@@ -98,12 +106,13 @@ class MissionToMars extends Component {
                 <div className="grid">
                     <WorldInput
                       onChange={this.handleResetMap}
-                      onSubmit={this.handleCreateMap}/>
-                      {mapReady && <AddRobot
+                      onSubmit={this.handleCreateMap}
+                    />
+                    {mapReady && <AddRobotInputs
                         onSubmit={this.handleAddRobot}
                         mapWidth={mapWidth}
                         mapHeight={mapHeight}/>
-                      }
+                    }
                 </div>
 
                 {mapReady && (
@@ -111,24 +120,13 @@ class MissionToMars extends Component {
 
                         <ResultTable robots={robots}/>
 
-                        <World
-                          mapWidth={mapWidth}
-                          mapHeight={mapHeight}
-                          multiplier={multiplier}
-                        >
-
-                            {robots.map((robot, index) => (<Robot
-                                key={`robotsprite${index}`}
-                                {...robot}
-                                mapWidth={mapWidth}
-                                mapHeight={mapHeight}
-                                multiplier={multiplier}
-                                delay={0}
-                                time={time}
-                                prevLostPos={prevLostPos}/>))
-                            }
-
-                        </World>
+                        <WorldAnimation
+                            mapWidth={mapWidth}
+                            mapHeight={mapHeight}
+                            multiplier={multiplier}
+                            robots={robots}
+                            time={time}
+                        />
 
                     </div>
                 )}
@@ -138,4 +136,3 @@ class MissionToMars extends Component {
     }
 }
 
-export default MissionToMars;

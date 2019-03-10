@@ -10,7 +10,7 @@ export const getInitialPosition = (robotPosition) => {
 
 }
 
-export const robotSteps = (robotInstructions, robotPosition, moveRobot) => {
+export const robotSteps = (robotPosition, robotInstructions, moveRobot) => {
     const { x, y, quadrant } = getInitialPosition(robotPosition);
 
     return robotInstructions
