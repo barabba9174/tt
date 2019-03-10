@@ -41,7 +41,7 @@ export default class AddRobotInputs extends Component {
                 <div className="cell-12 mt-2">
                     <h3 className="heading">Add robot</h3>
                 </div>
-                <div className="cell-10">
+                <div className="cell-8 cell-md-10">
                     <InitialPosition
                         mapWidth={mapWidth}
                         mapHeight={mapHeight}
@@ -53,7 +53,7 @@ export default class AddRobotInputs extends Component {
                         onSubmit={(value) => this.handleSubmit({ intructions: value })}
                     />
                 </div>
-                <div className="cell-2 mb-2">
+                <div className="cell-4 cell-md-2 mb-2">
                     <button
                         type="button"
                         disabled={intructions.error || position.error}

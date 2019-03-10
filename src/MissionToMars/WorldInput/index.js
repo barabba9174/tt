@@ -53,7 +53,7 @@ export default class WorldInput extends Component {
                 <div className="cell-12 mt-2">
                     <h2 className="heading">Add world size</h2>
                 </div>
-                <div className="cell-10">
+                <div className="cell-8 cell-md-10">
                     <label
                         htmlFor="world"
                         className={`input${ error
@@ -70,7 +70,7 @@ export default class WorldInput extends Component {
                     </label>
                 </div>
 
-                <div className="cell-2">
+                <div className="cell-4 cell-md-2">
                     <button
                         disabled={!!error}
                         type="button"
