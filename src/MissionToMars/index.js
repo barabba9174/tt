@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
-import {getQuadrantFromOrientation, getFinalPos} from './utils/quadrant';
+import React, { Component } from 'react';
+import { getFinalPos } from './utils/quadrant';
 import colors from './utils/colors';
 import moveRobot from './utils/move';
+import {robotSteps} from './utils/position';
 import ResultTable from './ResultTable';
 import World from './World';
 import Robot from './Robot';
@@ -52,48 +53,18 @@ class MissionToMars extends Component {
     handleAddRobot = (robotPosition, robotInstructions) => {
         const {robots, prevLostPos} = this.state;
 
-        const newPosition = robotPosition.split(' ');
-        const robotPosX = Number(newPosition[0]);
-        const robotPosY = Number(newPosition[1]);
-        const robotQuadrant = getQuadrantFromOrientation(newPosition[2]);
-
-        const steps = robotInstructions
-            .split('')
-            .reduce((accumulator, command) => {
-                const prevPos = accumulator[accumulator.length - 1];
-                const newPos = this.moveRobot({
-                    ...prevPos,
-                    command
-                });
-                return prevPos.lost
-                    ? accumulator
-                    : ([
-                        ...accumulator,
-                        newPos
-                    ]);
-            }, [
-                {
-                    x: robotPosX,
-                    y: robotPosY,
-                    quadrant: robotQuadrant
-                }
-            ]);
-
+        const steps = robotSteps(robotInstructions, robotPosition, this.moveRobot);
         const lastState = steps[steps.length - 1];
+        const initialState = steps[0];
 
         const {lost, x, y} = lastState;
+        
         const addLost = lost
-            ? [
-                {
-                    x,
-                    y
-                }
-            ]
+            ? [{ x, y }]
             : [];
 
         const index = robots.length;
-        const initialState = steps[0] || {};
-
+        
         this.setState({
             robots: [
                 ...robots, {
